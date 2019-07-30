@@ -1,0 +1,6 @@
+[run]
+source = login_required
+branch = 1
+
+[report]
+omit = login_required/apps.py
