@@ -18,7 +18,7 @@ setup(
     description='Requires login to all requests through middleware.',
     long_description=README,
     long_description_content_type='text/markdown',
-    url='https://github.com/CleitonDeLima/django-login-required',
+    url='https://github.com/CleitonDeLima/django-login-required-middleware',
     author='Cleiton de Lima',
     author_email='cleiton.limapin@gmail.com',
     classifiers=[
