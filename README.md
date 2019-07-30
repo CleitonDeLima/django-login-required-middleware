@@ -1,7 +1,7 @@
-django-login-required
+django-login-required-middleware
 ==============
 
-**django-login-required** provide login to all requests through middleware.
+**django-login-required-middleware** provide login to all requests through middleware.
 
 If the website has many views and almost all use 
 `LoginRequiredMixin` or the `login_required` decorator, using `django-login-required` 
@@ -16,7 +16,7 @@ Requirements
 Quick start
 -----------
 
-1. Install `pip install django-login-required`
+1. Install `pip install django-login-required-middleware`
 2. Add `'login_required'` in your `INSTALLED_APPS` setting.
 3. Add `login_required.middleware.LoginRequiredMiddleware` to `MIDDLEWARE` after 
 `django.contrib.auth.middleware.AuthenticationMiddleware`
