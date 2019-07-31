@@ -1,6 +1,8 @@
 django-login-required-middleware
 ==============
 
+[![Build Status](https://travis-ci.org/CleitonDeLima/django-login-required-middleware.svg?branch=master)](https://travis-ci.org/CleitonDeLima/django-login-required-middleware)
+
 **django-login-required-middleware** provide login to all requests through middleware.
 
 If the website has many views and almost all use 

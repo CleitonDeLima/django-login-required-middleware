@@ -1,0 +1,38 @@
+sudo: false
+language: python
+matrix:
+  include:
+    - python: '3.6'
+      env: TOXENV=py36-1.11
+    - python: '3.6'
+      env: TOXENV=py36-2.0
+    - python: '3.6'
+      env: TOXENV=py36-2.1
+    - python: '3.6'
+      env: TOXENV=py36-2.2
+    - python: '3.6'
+      env: TOXENV=py36-master
+    - python: '3.7'
+      env: TOXENV=py37-1.11
+    - python: '3.7'
+      env: TOXENV=py37-2.0
+    - python: '3.7'
+      env: TOXENV=py37-2.1
+    - python: '3.7'
+      env: TOXENV=py37-2.2
+    - python: '3.7'
+      env: TOXENV=py37-master
+install:
+  - pip install coveralls tox>=3
+script:
+  - tox
+after_script:
+  - coveralls
+deploy:
+  provider: pypi
+  user: cleitonlima
+  password:
+    secure: drSOzlZOzsaKsJb7smTe6q7rIvgYoG3GSjLUalEjULf8JzjvwYR44yfhudlTHab8bfUewEClBTnKBP5pJqsX8c4T2/tzwAfTyqpVr5UpqdfJhdcMESnTmkGqVuQgn+EldHOUSOpXlT/S4BVVM6HfS9v7TCC+FR/6+bA1Bku0TdTMtm/8pdGhFO0iTt0MxlXiIp/GZeHU/JgB0Wj8dpoxKdUxIG3r2JjaTT8n5ZmmD1Kl37UcbA2rMHoUvjC3e3zArDSFxMMgh4z13Wc3OAeDcY9rL8hwUZ6pW3gPGlA5Lq8uWaibVBIymYQzn1kBiljdb2VdWqF3MhCwyDvokQn1G0eYJK7MCztY4Y895iEZJyv0/Eqizpf7IMdWjLrI9Xjxn54H9kk47dvAaw0fsCI7VOmWT/+pmOMdjkvrxQ/rXfTzHYZXzsp1rzy8/dcHYI9UX9Hw2qsdrmw3eOEeuzwMy5IwlNt8AQsjQm6G9UVLS9TlCgNqgZZ4Tp4i5Ahu992Wo5BvdhNB8WbuaGnXL3HexVyJtpoY/fEr0k3WRxDSowe3zhyaDBmbyoAaA4W5Ssg68Xva1402RTlVG9+QctLD9yUdG3UihWc+MZ24/bUmwmCC6e6rAVI3J9hyw82yHOVQTrXA/oaujvAsWzwSXCQRnfEIR/rdZglImdXOA3ZFZ5Q=
+  distributions: sdist bdist_wheel
+  on:
+    tags: true
