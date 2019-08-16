@@ -4,6 +4,8 @@ django-login-required-middleware
 [![Build Status](https://travis-ci.org/CleitonDeLima/django-login-required-middleware.svg?branch=master)](https://travis-ci.org/CleitonDeLima/django-login-required-middleware)
 [![Coverage Status](https://coveralls.io/repos/github/CleitonDeLima/django-login-required-middleware/badge.svg)](https://coveralls.io/github/CleitonDeLima/django-login-required-middleware?branch=master)
 [![PyPI Version](https://img.shields.io/pypi/v/django-login-required-middleware.svg)](https://pypi.org/project/django-login-required-middleware/)
+[![PyPI downloads](https://img.shields.io/pypi/dm/django-login-required-middleware.svg)](https://img.shields.io/pypi/dm/django-login-required-middleware.svg)
+
 
 **django-login-required-middleware** provide login to all requests through middleware.
 
