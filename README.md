@@ -31,13 +31,26 @@ Quick start
 Any requests which match these paths will be ignored. This setting should be a list filled with 
 regex paths (`settings.LOGIN_URL` always included).    
 
-Example:
+    Example:
+ 
+    ```python
+    LOGIN_REQUIRED_IGNORE_PATHS = [
+        r'accounts/logout/$'
+        r'accounts/signup/$',
+        r'about/$'
+    ]
+    ```
 
-```python
-LOGIN_REQUIRED_IGNORE_PATHS = [
-    r'accounts/logout/$'
-    r'accounts/signup/$',
-    r'about/$'
-]
-```
+5. (Optional) Add `LOGIN_REQUIRED_IGNORE_VIEW_NAMES` setting.
+Any requests which match these url name will be ignored. This setting should be a list filled with 
+url names.
 
+    Example:
+    
+    ```python
+    LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
+        'home',
+        'login',
+        'namespace:url_name',
+    ]
+    ```
