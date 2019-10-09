@@ -33,11 +33,32 @@ class LoginRequiredMiddlewareTestCase(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    @mock.patch('login_required.middleware.IGNORE_PATHS',
-                [re.compile(r'^foo/$')])
+    @mock.patch(
+        'login_required.middleware.IGNORE_PATHS', [re.compile(r'^/foo/$')]
+    )
     def test_ignore_path_config(self):
         response = self.client.get('/foo/')
         self.assertEqual(response.status_code, 200)
+
+    @mock.patch('login_required.middleware.IGNORE_VIEW_NAMES', ['foo'])
+    def test_ignore_url_names_config(self):
+        response = self.client.get('/foo/')
+        self.assertEqual(response.status_code, 200)
+
+    @mock.patch('login_required.middleware.IGNORE_VIEW_NAMES', ['app:foo'])
+    def test_ignore_url_names_with_namespace_config(self):
+        response = self.client.get('/foo2/')
+        self.assertEqual(response.status_code, 200)
+
+    @mock.patch('login_required.middleware.IGNORE_VIEW_NAMES', ['bar'])
+    def test_ignore_url_names_another_name_config(self):
+        response = self.client.get('/foo/')
+        self.assertEqual(response.status_code, 302)
+
+    @mock.patch('login_required.middleware.IGNORE_VIEW_NAMES', ['foo'])
+    def test_ignore_url_names_invalid_path_call_config(self):
+        response = self.client.get('/bar/')
+        self.assertEqual(response.status_code, 302)
 
     def test_ajax_request(self):
         response = self.client.get('/foo/',
