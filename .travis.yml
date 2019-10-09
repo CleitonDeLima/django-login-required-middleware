@@ -37,4 +37,4 @@ deploy:
   distributions: sdist bdist_wheel
   on:
     tags: true
-    python: 3.7
+    skip_existing: true
