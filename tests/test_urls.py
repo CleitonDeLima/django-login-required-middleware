@@ -7,6 +7,7 @@ urlpatterns_with_namespace = [
 ]
 
 urlpatterns = [
+    url(r'^bar/$', lambda request: HttpResponse('bar'), name='bar'),
     url(r'^foo/$', lambda request: HttpResponse('foo'), name='foo'),
     url(r'^admin/', admin.site.urls),
     url('', include((urlpatterns_with_namespace, 'app')))

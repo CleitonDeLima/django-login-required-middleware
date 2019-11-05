@@ -3,8 +3,8 @@ import re
 from django.conf import settings
 from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import PermissionDenied
+from django.urls import resolve
 from django.utils.deprecation import MiddlewareMixin
-from django.urls import resolve, Resolver404
 
 IGNORE_PATHS = [re.compile(settings.LOGIN_URL)]
 IGNORE_PATHS += [
@@ -27,20 +27,14 @@ class LoginRequiredMiddleware(MiddlewareMixin):
         )
 
         path = request.path
-        if not request.user.is_authenticated:
+        if request.user.is_authenticated:
+            return
 
-            if request.is_ajax():
-                raise PermissionDenied()
+        if request.is_ajax():
+            raise PermissionDenied()
 
-            for name in IGNORE_VIEW_NAMES:
-                try:
-                    resolver = resolve(path)
-                    if resolver.view_name == name:
-                        return None
-                    else:
-                        return redirect_to_login(path)
-                except Resolver404:
-                    return redirect_to_login(path)
+        resolver = resolve(path)
+        views = ((name == resolver.view_name) for name in IGNORE_VIEW_NAMES)
 
-            if not any(url.match(path) for url in IGNORE_PATHS):
-                return redirect_to_login(path)
+        if not any(views) and not any(url.match(path) for url in IGNORE_PATHS):
+            return redirect_to_login(path)

@@ -40,9 +40,9 @@ class LoginRequiredMiddlewareTestCase(TestCase):
         response = self.client.get('/foo/')
         self.assertEqual(response.status_code, 200)
 
-    @mock.patch('login_required.middleware.IGNORE_VIEW_NAMES', ['foo'])
+    @mock.patch('login_required.middleware.IGNORE_VIEW_NAMES', ['foo', 'bar'])
     def test_ignore_url_names_config(self):
-        response = self.client.get('/foo/')
+        response = self.client.get('/bar/')
         self.assertEqual(response.status_code, 200)
 
     @mock.patch('login_required.middleware.IGNORE_VIEW_NAMES', ['app:foo'])
@@ -59,6 +59,10 @@ class LoginRequiredMiddlewareTestCase(TestCase):
     def test_ignore_url_names_invalid_path_call_config(self):
         response = self.client.get('/bar/')
         self.assertEqual(response.status_code, 302)
+
+    def test_raise_404(self):
+        response = self.client.get('/nonexistent-url/')
+        self.assertEqual(response.status_code, 404)
 
     def test_ajax_request(self):
         response = self.client.get('/foo/',
