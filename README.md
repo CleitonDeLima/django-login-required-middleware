@@ -16,20 +16,19 @@ can keep the code of your views more clear and avoids forgetting authentication 
 Requirements
 ------------
 
-* **Python**: 3.6, 3.7
+* **Python**: 3.6, 3.7, 3.8
 * **Django**: 1.11, 2.0, 2.1, 2.2, 3.0x
 
 Quick start
 -----------
 
 1. Install `pip install django-login-required-middleware`
-2. Add `'login_required'` in your `INSTALLED_APPS` setting.
-3. Add `login_required.middleware.LoginRequiredMiddleware` to `MIDDLEWARE` after
+2. Add `login_required.middleware.LoginRequiredMiddleware` to `MIDDLEWARE` after 
 `django.contrib.auth.middleware.AuthenticationMiddleware`
 
-4. (Optional) Add `LOGIN_REQUIRED_IGNORE_PATHS` setting.
-Any requests which match these paths will be ignored. This setting should be a list filled with
-regex paths (`settings.LOGIN_URL` always included).
+3. (Optional) Add `LOGIN_REQUIRED_IGNORE_PATHS` setting.  
+Any requests which match these paths will be ignored. This setting should be a list filled with 
+regex paths (`settings.LOGIN_URL` always included).    
 
     Example:
 
@@ -43,8 +42,8 @@ regex paths (`settings.LOGIN_URL` always included).
     ]
     ```
 
-5. (Optional) Add `LOGIN_REQUIRED_IGNORE_VIEW_NAMES` setting.
-Any requests which match these url name will be ignored. This setting should be a list filled with
+4. (Optional) Add `LOGIN_REQUIRED_IGNORE_VIEW_NAMES` setting.
+Any requests which match these url name will be ignored. This setting should be a list filled with 
 url names.
 
     Example:
