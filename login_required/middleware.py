@@ -7,6 +7,7 @@ from django.urls import resolve
 from django.utils.deprecation import MiddlewareMixin
 
 IGNORE_PATHS = [re.compile(settings.LOGIN_URL)]
+
 IGNORE_PATHS += [
     re.compile(url)
     for url in getattr(settings, 'LOGIN_REQUIRED_IGNORE_PATHS', [])
@@ -29,10 +30,7 @@ class LoginRequiredMiddleware(MiddlewareMixin):
         path = request.path
         if request.user.is_authenticated:
             return
-
-        if request.is_ajax():
-            raise PermissionDenied()
-
+        
         resolver = resolve(path)
         views = ((name == resolver.view_name) for name in IGNORE_VIEW_NAMES)
 
