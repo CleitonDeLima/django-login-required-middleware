@@ -63,8 +63,3 @@ class LoginRequiredMiddlewareTestCase(TestCase):
     def test_raise_404(self):
         response = self.client.get('/nonexistent-url/')
         self.assertEqual(response.status_code, 404)
-
-    def test_ajax_request(self):
-        response = self.client.get('/foo/',
-                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        self.assertEqual(response.status_code, 403)
