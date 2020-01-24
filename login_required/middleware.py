@@ -30,9 +30,6 @@ class LoginRequiredMiddleware(MiddlewareMixin):
         if request.user.is_authenticated:
             return
 
-        if request.is_ajax():
-            raise PermissionDenied()
-
         resolver = resolve(path)
         views = ((name == resolver.view_name) for name in IGNORE_VIEW_NAMES)
 
