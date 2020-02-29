@@ -1,65 +1,80 @@
 import re
 
-import mock
+import pytest
 from django.contrib.auth import get_user_model
-from django.test import TestCase, RequestFactory
+from django.test import RequestFactory
 
 from login_required.middleware import LoginRequiredMiddleware
 
 User = get_user_model()
 
 
-class LoginRequiredMiddlewareTestCase(TestCase):
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.middleware = LoginRequiredMiddleware()
-        self.user = User.objects.create_user(username='test')
-        self.request = self.factory.get('/foo/')
-        self.request.user = self.user
+@pytest.fixture
+def user(db):
+    return User.objects.create_user(username='test')
 
-    def test_authentication_middleware_required(self):
-        del self.request.user
 
-        with self.assertRaises(AssertionError):
-            self.middleware.process_request(self.request)
+def test_authentication_middleware_required(user):
+    factory = RequestFactory()
+    middleware = LoginRequiredMiddleware()
+    request = factory.get('/foo/')
+    request.user = user
+    del request.user
 
-    def test_redirect_to_login(self):
-        response = self.client.get('/foo/')
-        self.assertEqual(response.status_code, 302)
+    with pytest.raises(AssertionError):
+        middleware.process_request(request)
 
-    def test_normal_redirect_authenticated(self):
-        self.client.force_login(self.user)
-        response = self.client.get('/foo/')
 
-        self.assertEqual(response.status_code, 200)
+def test_redirect_to_login(client):
+    response = client.get('/foo/')
+    assert response.status_code == 302
 
-    @mock.patch(
+
+def test_normal_redirect_authenticated(client, user):
+    client.force_login(user)
+    response = client.get('/foo/')
+
+    assert response.status_code == 200
+
+
+def test_ignore_path_config(client, mocker):
+    mocker.patch(
         'login_required.middleware.IGNORE_PATHS', [re.compile(r'^/foo/$')]
     )
-    def test_ignore_path_config(self):
-        response = self.client.get('/foo/')
-        self.assertEqual(response.status_code, 200)
+    response = client.get('/foo/')
 
-    @mock.patch('login_required.middleware.IGNORE_VIEW_NAMES', ['foo', 'bar'])
-    def test_ignore_url_names_config(self):
-        response = self.client.get('/bar/')
-        self.assertEqual(response.status_code, 200)
+    assert response.status_code == 200
 
-    @mock.patch('login_required.middleware.IGNORE_VIEW_NAMES', ['app:foo'])
-    def test_ignore_url_names_with_namespace_config(self):
-        response = self.client.get('/foo2/')
-        self.assertEqual(response.status_code, 200)
 
-    @mock.patch('login_required.middleware.IGNORE_VIEW_NAMES', ['bar'])
-    def test_ignore_url_names_another_name_config(self):
-        response = self.client.get('/foo/')
-        self.assertEqual(response.status_code, 302)
+def test_ignore_url_names_config(client, mocker):
+    mocker.patch('login_required.middleware.IGNORE_VIEW_NAMES', ['foo', 'bar'])
+    response = client.get('/bar/')
 
-    @mock.patch('login_required.middleware.IGNORE_VIEW_NAMES', ['foo'])
-    def test_ignore_url_names_invalid_path_call_config(self):
-        response = self.client.get('/bar/')
-        self.assertEqual(response.status_code, 302)
+    assert response.status_code == 200
 
-    def test_raise_404(self):
-        response = self.client.get('/nonexistent-url/')
-        self.assertEqual(response.status_code, 404)
+
+def test_ignore_url_names_with_namespace_config(client, mocker):
+    mocker.patch('login_required.middleware.IGNORE_VIEW_NAMES', ['app:foo'])
+    response = client.get('/foo2/')
+
+    assert response.status_code == 200
+
+
+def test_ignore_url_names_another_name_config(client, mocker):
+    mocker.patch('login_required.middleware.IGNORE_VIEW_NAMES', ['bar'])
+    response = client.get('/foo/')
+
+    assert response.status_code == 302
+
+
+def test_ignore_url_names_invalid_path_call_config(client, mocker):
+    mocker.patch('login_required.middleware.IGNORE_VIEW_NAMES', ['foo'])
+    response = client.get('/bar/')
+
+    assert response.status_code == 302
+
+
+def test_raise_404(client):
+    response = client.get('/nonexistent-url/')
+
+    assert response.status_code == 404
