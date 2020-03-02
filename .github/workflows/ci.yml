@@ -25,9 +25,8 @@ jobs:
       run: |
         pip install coveralls tox tox-gh-actions
     - name: Test with tox
-      run: tox
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: .coverage
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      run: |
+        tox
+        coveralls
