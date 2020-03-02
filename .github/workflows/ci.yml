@@ -25,7 +25,7 @@ jobs:
       run: |
         pip install coveralls tox
     - name: Test with tox
-      run: tox
+      run: tox -e py
     - name: Coveralls
       uses: coverallsapp/github-action@master
       with:
