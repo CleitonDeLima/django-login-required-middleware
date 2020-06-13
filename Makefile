@@ -4,4 +4,9 @@ export PYTHONPATH := $(shell pwd)
 test:
 	pytest --cov=login_required --cov-report=term --cov-report=html
 
+publish:
+	# install twine
+	python setup.py sdist
+	twine upload dist/*
+
 .PHONY: test
