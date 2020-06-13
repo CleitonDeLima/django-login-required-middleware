@@ -2,6 +2,7 @@ import re
 
 import pytest
 from django.contrib.auth import get_user_model
+from django.http import HttpResponse
 from django.test import RequestFactory
 
 from login_required.middleware import LoginRequiredMiddleware
@@ -16,7 +17,7 @@ def user(db):
 
 def test_authentication_middleware_required(user):
     factory = RequestFactory()
-    middleware = LoginRequiredMiddleware()
+    middleware = LoginRequiredMiddleware(lambda req: HttpResponse())
     request = factory.get('/foo/')
     request.user = user
     del request.user
