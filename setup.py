@@ -2,39 +2,39 @@ import os
 
 from setuptools import setup
 
-with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
+with open(os.path.join(os.path.dirname(__file__), "README.md")) as readme:
     README = readme.read()
 
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='django-login-required-middleware',
-    version='0.5.0',
+    name="django-login-required-middleware",
+    version="0.6.0",
     packages=[
-        'login_required',
+        "login_required",
     ],
     include_package_data=True,
-    license='MIT',
-    description='Requires login to all requests through middleware.',
+    license="MIT",
+    description="Requires login to all requests through middleware.",
     long_description=README,
-    long_description_content_type='text/markdown',
-    url='https://github.com/CleitonDeLima/django-login-required-middleware',
-    author='Cleiton de Lima',
-    author_email='cleiton.limapin@gmail.com',
+    long_description_content_type="text/markdown",
+    url="https://github.com/CleitonDeLima/django-login-required-middleware",
+    author="Cleiton de Lima",
+    author_email="cleiton.limapin@gmail.com",
     classifiers=[
-        'Environment :: Web Environment',
-        'Framework :: Django',
-        'Framework :: Django :: 1.11',
-        'Framework :: Django :: 2.0',
-        'Framework :: Django :: 2.1',
-        'Framework :: Django :: 2.2',
-        'Framework :: Django :: 3.0',
-        'Intended Audience :: Developers',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Topic :: Internet :: WWW/HTTP',
-        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
+        "Environment :: Web Environment",
+        "Framework :: Django",
+        "Framework :: Django :: 1.11",
+        "Framework :: Django :: 2.0",
+        "Framework :: Django :: 2.1",
+        "Framework :: Django :: 2.2",
+        "Framework :: Django :: 3.0",
+        "Intended Audience :: Developers",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Topic :: Internet :: WWW/HTTP",
+        "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
     ],
 )
