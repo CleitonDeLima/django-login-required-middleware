@@ -7,13 +7,11 @@ from django.urls import resolve
 
 IGNORE_PATHS = [re.compile(settings.LOGIN_URL)]
 IGNORE_PATHS += [
-    re.compile(url)
-    for url in getattr(settings, 'LOGIN_REQUIRED_IGNORE_PATHS', [])
+    re.compile(url) for url in getattr(settings, "LOGIN_REQUIRED_IGNORE_PATHS", [])
 ]
 
 IGNORE_VIEW_NAMES = [
-    name
-    for name in getattr(settings, 'LOGIN_REQUIRED_IGNORE_VIEW_NAMES', [])
+    name for name in getattr(settings, "LOGIN_REQUIRED_IGNORE_VIEW_NAMES", [])
 ]
 
 
@@ -22,11 +20,11 @@ class LoginRequiredMiddleware(AuthenticationMiddleware):
         if request.user.is_authenticated:
             return
 
-        if not getattr(view_func, 'login_required', True):
+        if not getattr(view_func, "login_required", True):
             return None
 
-        view_class = getattr(view_func, 'view_class', None)
-        if view_class and not getattr(view_class, 'login_required', True):
+        view_class = getattr(view_func, "view_class", None)
+        if view_class and not getattr(view_class, "login_required", True):
             return None
 
         path = request.path

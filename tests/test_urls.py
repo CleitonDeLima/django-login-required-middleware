@@ -16,14 +16,13 @@ class SampleView(LoginNotRequiredMixin, View):
 
 
 urlpatterns_with_namespace = [
-    path('foo2/', lambda request: HttpResponse('foo2'), name='foo')
+    path("foo2/", lambda request: HttpResponse("foo2"), name="foo")
 ]
 
 urlpatterns = [
-    path('bar/', lambda request: HttpResponse('bar'), name='bar'),
-    path('foo/', lambda request: HttpResponse('foo'), name='foo'),
-    path('sample1/', sample1, name='sample1'),
-    path('sample2/', SampleView.as_view(), name='sample2'),
-
-    path('', include((urlpatterns_with_namespace, 'app'))),
+    path("bar/", lambda request: HttpResponse("bar"), name="bar"),
+    path("foo/", lambda request: HttpResponse("foo"), name="foo"),
+    path("sample1/", sample1, name="sample1"),
+    path("sample2/", SampleView.as_view(), name="sample2"),
+    path("", include((urlpatterns_with_namespace, "app"))),
 ]

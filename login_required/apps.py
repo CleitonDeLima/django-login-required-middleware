@@ -2,7 +2,7 @@ from django.apps import AppConfig
 
 
 class LoginRequiredConfig(AppConfig):
-    name = 'login_required'
+    name = "login_required"
 
     def ready(self):
         from django.contrib.auth import views
@@ -12,7 +12,7 @@ class LoginRequiredConfig(AppConfig):
             views.PasswordResetView,
             views.PasswordResetDoneView,
             views.PasswordResetConfirmView,
-            views.PasswordResetCompleteView
+            views.PasswordResetCompleteView,
         )
         for view in login_not_required_views:
             view.login_required = False
