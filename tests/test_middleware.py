@@ -43,10 +43,10 @@ class TestMiddleware:
 
         assert response.status_code == 200
 
-    def test_raise_404(self, client):
+    def test_redirect_404(self, client):
         response = client.get("/nonexistent-url/")
 
-        assert response.status_code == 404
+        assert response.status_code == 302
 
 
 class TestIgnorePaths:

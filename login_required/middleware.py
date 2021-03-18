@@ -1,6 +1,7 @@
 import re
 
 from django.conf import settings
+from django.http import Http404
 from django.contrib.auth.middleware import AuthenticationMiddleware
 from django.contrib.auth.views import redirect_to_login
 from django.urls import resolve
@@ -21,7 +22,11 @@ class LoginRequiredMiddleware(AuthenticationMiddleware):
             return None
 
         path = request.path
-        resolver = resolve(path)
+        try:
+            resolver = resolve(path)
+        except Http404:
+            return redirect_to_login(path)
+
         view_func = resolver.func
 
         if not getattr(view_func, "login_required", True):
