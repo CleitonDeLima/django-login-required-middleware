@@ -29,7 +29,7 @@ class LoginRequiredMiddleware(AuthenticationMiddleware):
 
         path = request.path
         resolver = resolve(path)
-        views = ((name == resolver.view_name) for name in IGNORE_VIEW_NAMES)
+        ignore_view = resolver.view_name in IGNORE_VIEW_NAMES
 
-        if not any(views) and not any(url.match(path) for url in IGNORE_PATHS):
+        if not ignore_view and not any(url.match(path) for url in IGNORE_PATHS):
             return redirect_to_login(path)
