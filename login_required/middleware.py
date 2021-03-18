@@ -16,9 +16,13 @@ IGNORE_VIEW_NAMES = [
 
 
 class LoginRequiredMiddleware(AuthenticationMiddleware):
-    def process_view(self, request, view_func, view_args, view_kwargs):
+    def _login_required(self, request):
         if request.user.is_authenticated:
             return None
+
+        path = request.path
+        resolver = resolve(path)
+        view_func = resolver.func
 
         if not getattr(view_func, "login_required", True):
             return None
@@ -27,11 +31,14 @@ class LoginRequiredMiddleware(AuthenticationMiddleware):
         if view_class and not getattr(view_class, "login_required", True):
             return None
 
-        path = request.path
-        resolver = resolve(path)
-        ignore_view = resolver.view_name in IGNORE_VIEW_NAMES
-
-        if ignore_view or any(url.match(path) for url in IGNORE_PATHS):
+        if resolver.view_name in IGNORE_VIEW_NAMES or any(url.match(path) for url in IGNORE_PATHS):
             return None
 
         return redirect_to_login(path)
+
+    def __call__(self, request):
+        response = self._login_required(request)
+        if response:
+            return response
+
+        return self.get_response(request)
