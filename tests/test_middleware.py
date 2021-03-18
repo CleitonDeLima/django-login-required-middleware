@@ -56,6 +56,12 @@ class TestIgnorePaths:
 
         assert response.status_code == 200
 
+    def test_ignore_path_nonexistent(self, client, mocker):
+        mocker.patch("login_required.middleware.IGNORE_PATHS", [re.compile(r"^/nonexistent-url/$")])
+        response = client.get("/nonexistent-url/")
+
+        assert response.status_code == 404
+
 
 class TestIgnoreViewByName:
     def test_ignore_url_names_config(self, client, mocker):

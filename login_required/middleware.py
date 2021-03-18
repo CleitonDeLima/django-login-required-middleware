@@ -22,6 +22,9 @@ class LoginRequiredMiddleware(AuthenticationMiddleware):
             return None
 
         path = request.path
+        if any(url.match(path) for url in IGNORE_PATHS):
+            return None
+
         try:
             resolver = resolve(path)
         except Http404:
@@ -36,7 +39,7 @@ class LoginRequiredMiddleware(AuthenticationMiddleware):
         if view_class and not getattr(view_class, "login_required", True):
             return None
 
-        if resolver.view_name in IGNORE_VIEW_NAMES or any(url.match(path) for url in IGNORE_PATHS):
+        if resolver.view_name in IGNORE_VIEW_NAMES:
             return None
 
         return redirect_to_login(path)
