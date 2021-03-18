@@ -9,6 +9,7 @@ from django.contrib.auth.views import (
     PasswordResetDoneView,
     PasswordResetView,
 )
+from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse
 from django.test import RequestFactory
 from login_required.middleware import LoginRequiredMiddleware
@@ -29,7 +30,7 @@ class TestMiddleware:
         request.user = user
         del request.user
 
-        with pytest.raises(AssertionError):
+        with pytest.raises((AssertionError, ImproperlyConfigured)):
             middleware.process_request(request)
 
     def test_redirect_to_login(self, client):
