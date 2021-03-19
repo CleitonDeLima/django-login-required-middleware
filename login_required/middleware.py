@@ -1,13 +1,12 @@
 import re
 
 from django.conf import settings
-from django.http import Http404
 from django.contrib.auth.middleware import AuthenticationMiddleware
 from django.contrib.auth.views import redirect_to_login
+from django.http import Http404
 from django.urls import resolve
 
-IGNORE_PATHS = [re.compile(settings.LOGIN_URL)]
-IGNORE_PATHS += [
+IGNORE_PATHS = [
     re.compile(url) for url in getattr(settings, "LOGIN_REQUIRED_IGNORE_PATHS", [])
 ]
 
