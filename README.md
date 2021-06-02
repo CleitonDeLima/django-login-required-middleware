@@ -47,13 +47,14 @@ Quick start
 
 4. (Optional) Add `LOGIN_REQUIRED_IGNORE_PATHS` setting.
 Any requests which match these paths will be ignored. This setting should be a list filled with 
-regex paths (`settings.LOGIN_URL` always included).    
+regex paths.    
 
     Example:
 
     ```python
     LOGIN_REQUIRED_IGNORE_PATHS = [
-        r'/accounts/logout/$'
+        r'/accounts/login/$',
+        r'/accounts/logout/$',
         r'/accounts/signup/$',
         r'/admin/$',
         r'/admin/login/$',
