@@ -30,7 +30,7 @@ class TestMiddleware:
         request.user = user
         del request.user
 
-        with pytest.raises((AssertionError, ImproperlyConfigured)):
+        with pytest.raises((AttributeError, ImproperlyConfigured)):
             middleware.process_request(request)
 
     def test_redirect_to_login(self, client):
