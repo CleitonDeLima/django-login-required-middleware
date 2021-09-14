@@ -23,7 +23,7 @@ Quick start
 -----------
 
 1. Install `pip install django-login-required-middleware`
-2. Add `login_required.middleware.LoginRequiredMiddleware` to `MIDDLEWARE` after 
+2. Add `login_required.middleware.LoginRequiredMiddleware` to `MIDDLEWARE` after
 `django.contrib.auth.middleware.AuthenticationMiddleware`
 3. (Optional) To ignore authentication in a view uses decorato `@login_not_required` for FBV or `LoginNotRequiredMixin` for CBV:
 
@@ -46,8 +46,8 @@ Quick start
     ```
 
 4. (Optional) Add `LOGIN_REQUIRED_IGNORE_PATHS` setting.
-Any requests which match these paths will be ignored. This setting should be a list filled with 
-regex paths (`settings.LOGIN_URL` always included).    
+Any requests which match these paths will be ignored. This setting should be a list filled with
+regex paths (`settings.LOGIN_URL` always included).
 
     Example:
 
@@ -56,13 +56,12 @@ regex paths (`settings.LOGIN_URL` always included).
         r'/accounts/logout/$'
         r'/accounts/signup/$',
         r'/admin/$',
-        r'/admin/login/$',
         r'/about/$'
     ]
     ```
 
 5. (Optional) Add `LOGIN_REQUIRED_IGNORE_VIEW_NAMES` setting.
-Any requests which match these url name will be ignored. This setting should be a list filled with 
+Any requests which match these url name will be ignored. This setting should be a list filled with
 url names.
 
     Example:
@@ -70,7 +69,6 @@ url names.
     ```python
     LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
         'home',
-        'login',
         'admin:index',
         'admin:login',
         'namespace:url_name',
