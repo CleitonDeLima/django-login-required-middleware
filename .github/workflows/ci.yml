@@ -40,7 +40,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create Release
-        if: ${{ github.event_name == 'push' && github.event.ref == 'refs/heads/master' }}
       - uses: dropseed/changerelease@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
