@@ -39,7 +39,8 @@ jobs:
     needs: tests
     runs-on: ubuntu-latest
     steps:
-      if: ${{ github.event_name == 'push' && github.event.ref == 'refs/heads/master' }}
+      - name: Create Release
+        if: ${{ github.event_name == 'push' && github.event.ref == 'refs/heads/master' }}
       - uses: dropseed/changerelease@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -48,10 +49,10 @@ jobs:
     needs: changerelease
     runs-on: ubuntu-latest
     steps:
-      if: ${{ github.event_name == 'release' && github.event.action == 'released' }}
-      - uses: actions/checkout@v2
       - name: Set up Python
-        uses: actions/setup-python@v2
+        if: ${{ github.event_name == 'release' && github.event.action == 'released' }}
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
         with:
           python-version: '3.x'
       - name: Install dependencies
