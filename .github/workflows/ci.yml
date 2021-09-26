@@ -48,9 +48,8 @@ jobs:
     needs: changerelease
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Python
+      - uses: actions/checkout@v2
         if: ${{ github.event_name == 'release' && github.event.action == 'released' }}
-        uses: actions/checkout@v2
  
       - uses: actions/setup-python@v2
         with:
