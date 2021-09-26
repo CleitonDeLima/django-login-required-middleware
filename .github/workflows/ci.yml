@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - master
+  release:
+    types: published
 
 jobs:
   tests:
@@ -47,7 +49,7 @@ jobs:
   deploy:
     needs: changerelease
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'release' && github.event.action == 'released' }}
+    if: ${{ github.event_name == 'release' }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
