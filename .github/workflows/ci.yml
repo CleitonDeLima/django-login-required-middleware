@@ -47,10 +47,9 @@ jobs:
   deploy:
     needs: changerelease
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'release' && github.event.action == 'released' }}
     steps:
       - uses: actions/checkout@v2
-        if: ${{ github.event_name == 'release' && github.event.action == 'released' }}
- 
       - uses: actions/setup-python@v2
         with:
           python-version: '3.x'
