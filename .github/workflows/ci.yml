@@ -7,8 +7,6 @@ on:
   pull_request:
     branches:
       - master
-  release:
-    types: published
 
 jobs:
   tests:
@@ -40,6 +38,7 @@ jobs:
   changerelease:
     needs: tests
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
     steps:
       - name: Create Release
         uses: dropseed/changerelease@v1
