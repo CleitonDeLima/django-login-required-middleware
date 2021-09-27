@@ -6,10 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0]
+
+### Added
+- Created deploy workflow in GitHub actions
+
 ## [0.6.6] - 2021-09-25
 
 ### Changed
-- Created a new CI um GitHub actions
+- Created a new CI in GitHub actions
 
 ## [0.6.5] - 2021-09-21
 
