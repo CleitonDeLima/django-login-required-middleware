@@ -2,4 +2,4 @@ coverage==6.0
 pytest==6.2.5
 pytest-django==4.4.0
 pytest-mock==3.6.1
-pytest-cov==2.12.1
+pytest-cov==3.0.0
