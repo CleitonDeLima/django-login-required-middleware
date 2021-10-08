@@ -43,4 +43,4 @@ jobs:
       - name: Create Release
         uses: dropseed/changerelease@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.MY_GITHUB_TOKEN }}
