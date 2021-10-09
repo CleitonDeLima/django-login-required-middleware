@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Add Django 4 and Python 3.10 to tox and CI
+
 ## [0.7.1]
 
 ### Changed
