@@ -14,7 +14,8 @@ IGNORE_VIEW_NAMES = list(getattr(settings, "LOGIN_REQUIRED_IGNORE_VIEW_NAMES", [
 
 
 class LoginRequiredMiddleware(AuthenticationMiddleware):
-    def _login_required(self, request):
+    @staticmethod
+    def _login_required(request):
         if request.user.is_authenticated:
             return None
 
