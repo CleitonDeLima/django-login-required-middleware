@@ -53,7 +53,7 @@ regex paths (`settings.LOGIN_URL` always included).
 
     ```python
     LOGIN_REQUIRED_IGNORE_PATHS = [
-        r'/accounts/logout/$'
+        r'/accounts/logout/$',
         r'/accounts/signup/$',
         r'/admin/$',
         r'/about/$'
