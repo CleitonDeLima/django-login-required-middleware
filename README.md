@@ -74,3 +74,12 @@ url names.
         'namespace:url_name',
     ]
     ```
+
+6. (Optional) Add `LOGIN_REQUIRED_REDIRECT_FIELD_NAME` setting.
+This will be passed to Django's redirect_to_login().  Default is 'next'.
+
+    Example:
+
+    ```python
+    LOGIN_REQUIRED_REDIRECT_FIELD_NAME = 'next_url'
+    ```

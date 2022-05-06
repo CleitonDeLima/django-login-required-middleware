@@ -5,6 +5,7 @@ from django.contrib.auth.middleware import AuthenticationMiddleware
 from django.contrib.auth.views import redirect_to_login
 from django.http import Http404
 from django.urls import resolve
+from django.contrib.auth import REDIRECT_FIELD_NAME as REDIRECT_FIELD_NAME_DEFAULT
 
 IGNORE_PATHS = [
     re.compile(url) for url in getattr(settings, "LOGIN_REQUIRED_IGNORE_PATHS", [])
@@ -13,6 +14,8 @@ IGNORE_PATHS = [
 IGNORE_VIEW_NAMES = [
     name for name in getattr(settings, "LOGIN_REQUIRED_IGNORE_VIEW_NAMES", [])
 ]
+
+REDIRECT_FIELD_NAME = getattr(settings, "LOGIN_REQUIRED_REDIRECT_FIELD_NAME", REDIRECT_FIELD_NAME_DEFAULT)
 
 
 class LoginRequiredMiddleware(AuthenticationMiddleware):
@@ -41,7 +44,7 @@ class LoginRequiredMiddleware(AuthenticationMiddleware):
         if resolver.view_name in IGNORE_VIEW_NAMES:
             return None
 
-        return redirect_to_login(path)
+        return redirect_to_login(path, redirect_field_name=REDIRECT_FIELD_NAME)
 
     def process_request(self, request):
         """
