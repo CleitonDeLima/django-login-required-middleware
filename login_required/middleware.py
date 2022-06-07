@@ -46,11 +46,14 @@ class LoginRequiredMiddleware(AuthenticationMiddleware):
 
         return redirect_to_login(path, redirect_field_name=REDIRECT_FIELD_NAME)
 
-    def process_request(self, request):
+    def process_response(self, request, response):
         """
-        Use process_request instead of defining __call__ directly;
+        Use process_response instead of defining __call__ directly;
         Django's middleware layer will process_request in a coroutine in __acall__ if it detects an async context.
         Otherwise, it will use __call__.
         https://github.com/django/django/blob/acde91745656a852a15db7611c08cabf93bb735b/django/utils/deprecation.py#L88-L148
+
+        Using process_response instead of process_request allows login
+        via django-rest-framework token (if installed) before checking.
         """
-        return self._login_required(request)
+        return self._login_required(request) or response
