@@ -49,7 +49,8 @@ class LoginRequiredMiddleware(AuthenticationMiddleware):
     def process_response(self, request, response):
         """
         Use process_response instead of defining __call__ directly;
-        Django's middleware layer will process_request in a coroutine in __acall__ if it detects an async context.
+        Django's middleware layer will process_request and process_response
+        in a coroutine in __acall__ if it detects an async context.
         Otherwise, it will use __call__.
         https://github.com/django/django/blob/acde91745656a852a15db7611c08cabf93bb735b/django/utils/deprecation.py#L88-L148
 
