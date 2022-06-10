@@ -30,7 +30,7 @@ class LoginRequiredMiddleware(AuthenticationMiddleware):
         try:
             resolver = resolve(path)
         except Http404:
-            return redirect_to_login(path)
+            return redirect_to_login(request.get_full_path())
 
         view_func = resolver.func
 
@@ -44,7 +44,7 @@ class LoginRequiredMiddleware(AuthenticationMiddleware):
         if resolver.view_name in IGNORE_VIEW_NAMES:
             return None
 
-        return redirect_to_login(path, redirect_field_name=REDIRECT_FIELD_NAME)
+        return redirect_to_login(request.get_full_path(), redirect_field_name=REDIRECT_FIELD_NAME)
 
     def process_request(self, request):
         """
