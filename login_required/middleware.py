@@ -17,8 +17,35 @@ IGNORE_VIEW_NAMES = [
 
 REDIRECT_FIELD_NAME = getattr(settings, "LOGIN_REQUIRED_REDIRECT_FIELD_NAME", REDIRECT_FIELD_NAME_DEFAULT)
 
+INSTALLED_APPS = getattr(settings, 'INSTALLED_APPS', tuple())
+
 
 class LoginRequiredMiddleware(AuthenticationMiddleware):
+
+    def _pre_check_drf_auth(self, request) -> bool:
+        """
+        Check authentication via DRF.
+
+        Note that this instance will not be passed to DRF.
+
+        :param request: WSGIRequest object
+
+        :return: True if DRF is installed and auth is successful
+        """
+        if 'rest_framework' not in INSTALLED_APPS:
+            return False
+        try:
+            from rest_framework.views import APIView
+
+            drf_view = APIView()
+            drf_request = drf_view.initialize_request(request)
+            # raises AuthenticationFailed if not successful
+            return drf_request.user.is_authenticated
+            # but catching everything will avoid failure in case of
+            # other exceptions internal to DRF
+        except:
+            return False
+
     def _login_required(self, request):
         if request.user.is_authenticated:
             return None
@@ -42,6 +69,9 @@ class LoginRequiredMiddleware(AuthenticationMiddleware):
             return None
 
         if resolver.view_name in IGNORE_VIEW_NAMES:
+            return None
+
+        if self._pre_check_drf_auth(request):
             return None
 
         return redirect_to_login(request.get_full_path(), redirect_field_name=REDIRECT_FIELD_NAME)
