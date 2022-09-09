@@ -16,8 +16,8 @@ can keep the code of your views more clear and avoids forgetting authentication 
 Requirements
 ------------
 
-* **Python**: 3.6, 3.7, 3.8
-* **Django**: 1.11, 2.0, 2.1, 2.2, 3.0x
+* **Python** 3.8 to 3.10 supported.
+* **Django** 3.2 to 4.1 supported.
 
 Quick start
 -----------

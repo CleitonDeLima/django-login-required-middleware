@@ -1,8 +1,7 @@
 from django.http import HttpResponse
-from django.urls import path, include
+from django.urls import include, path
 from django.views import View
-
-from login_required import login_not_required, LoginNotRequiredMixin
+from login_required import LoginNotRequiredMixin, login_not_required
 
 
 @login_not_required

@@ -1,3 +1,5 @@
+import django
+
 SECRET_KEY = "any-key"
 
 DATABASES = {
@@ -23,7 +25,7 @@ MIDDLEWARE = [
     "login_required.middleware.LoginRequiredMiddleware",
 ]
 
-ROOT_URLCONF = "tests.test_urls"
+ROOT_URLCONF = "tests.urls"
 
 TEMPLATES = [
     {
@@ -40,3 +42,9 @@ TEMPLATES = [
         },
     },
 ]
+
+if django.VERSION < (4, 0):
+    USE_L10N = True
+
+USE_I18N = True
+USE_TZ = True
