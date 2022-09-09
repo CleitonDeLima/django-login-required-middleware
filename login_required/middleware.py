@@ -11,15 +11,14 @@ IGNORE_PATHS = [
     re.compile(url) for url in getattr(settings, "LOGIN_REQUIRED_IGNORE_PATHS", [])
 ]
 
-IGNORE_VIEW_NAMES = [
-    name for name in getattr(settings, "LOGIN_REQUIRED_IGNORE_VIEW_NAMES", [])
-]
+IGNORE_VIEW_NAMES = list(getattr(settings, "LOGIN_REQUIRED_IGNORE_VIEW_NAMES", []))
 
 REDIRECT_FIELD_NAME = getattr(settings, "LOGIN_REQUIRED_REDIRECT_FIELD_NAME", REDIRECT_FIELD_NAME_DEFAULT)
 
 
 class LoginRequiredMiddleware(AuthenticationMiddleware):
-    def _login_required(self, request):
+    @staticmethod
+    def _login_required(request):
         if request.user.is_authenticated:
             return None
 
