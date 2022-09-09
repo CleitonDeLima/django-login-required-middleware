@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.coverage.report]
+fail_under = 100
+show_missing = true
+skip_covered = true
+
+[tool.pytest.ini_options]
+addopts = """\
+    --strict-config
+    --strict-markers
+    --ds=tests.settings
+    --cov=login_required
+    --cov-report=term-missing
+    """
+django_find_project = false
+testpaths = [
+    "tests",
+]
+python_files = [
+    "tests.py",
+    "test_*.py",
+]
