@@ -10,7 +10,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name="django-login-required-middleware",
-    version="0.8.0",
+    version="0.9.0",
     packages=[
         "login_required",
     ],
@@ -31,9 +31,9 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Framework :: Django",
-        "Framework :: Django :: 3.2"
-        "Framework :: Django :: 4.0"
-        "Framework :: Django :: 4.1"
+        "Framework :: Django :: 3.2",
+        "Framework :: Django :: 4.0",
+        "Framework :: Django :: 4.1",
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
         "Topic :: Internet :: WWW/HTTP",
