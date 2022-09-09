@@ -43,11 +43,15 @@ class TestMiddleware:
 
         assert response.status_code == 200
 
-    def test_redirect_404(self, client):
-        client.force_login(user_obj)
+    def test_redirect_404(self, client, user):
+        client.force_login(user)
         response = client.get("/nonexistent-url/")
 
         assert response.status_code == 404
+
+    def test_404_redirect_to_login(self, client):
+        response = client.get("/nonexistent-url/")
+        assert response.status_code == 302
 
 
 class TestIgnorePaths:
@@ -58,7 +62,10 @@ class TestIgnorePaths:
         assert response.status_code == 200
 
     def test_ignore_path_nonexistent(self, client, mocker):
-        mocker.patch("login_required.middleware.IGNORE_PATHS", [re.compile(r"^/nonexistent-url/$")])
+        mocker.patch(
+            "login_required.middleware.IGNORE_PATHS",
+            [re.compile(r"^/nonexistent-url/$")],
+        )
         response = client.get("/nonexistent-url/")
 
         assert response.status_code == 404

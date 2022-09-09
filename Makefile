@@ -1,5 +1,5 @@
 coverage:
-	python -m pytest --cov-report=html
+	python -m pytest --cov=login_required --cov-report=html --cov-report=term-missing
 
 
 publish:
