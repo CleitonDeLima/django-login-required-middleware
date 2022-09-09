@@ -12,8 +12,6 @@ addopts = """\
     --strict-config
     --strict-markers
     --ds=tests.settings
-    --cov=login_required
-    --cov-report=term-missing
     """
 django_find_project = false
 testpaths = [
